@@ -10,5 +10,5 @@ package appFacturacion;
  * @author Anthony
  */
 public class Cliente extends Orden{
-    String holi="helczxczxczxclo";
+    String holi="holu";
 }
