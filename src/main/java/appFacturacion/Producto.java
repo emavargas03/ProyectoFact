@@ -11,13 +11,14 @@ public class Producto extends DetalleOrden{
     private String Descripcion;
     private double Costo;
 
-    public Producto(String codigoProducto, String descripcion, double costo, String producto, double Precio, double cantidad, ArrayList<Double> muestra) {
-        super(producto, Precio, cantidad, muestra);
-        this.CodigoProducto = codigoProducto;
-        this.Descripcion = descripcion;
-        this.Costo = costo;
+    public Producto(String CodigoProducto, String Descripcion, double Costo, String producto, float precio, float cantidad, ArrayList<Double> productos) {
+        super(producto, precio, cantidad, productos);
+        this.CodigoProducto = CodigoProducto;
+        this.Descripcion = Descripcion;
+        this.Costo = Costo;
     }
 
+    
     
 
     

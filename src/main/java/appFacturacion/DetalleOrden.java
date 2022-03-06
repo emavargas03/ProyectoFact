@@ -27,16 +27,50 @@ public abstract class DetalleOrden {
                 + "\nCantidad de Topping: " + this.Cantidad
                 + "\nCantidad de Jarabe: " + this.Productos;
     }
-    public double CalculoPago() {
-     if (this.pago
-             /*
-() == this.destino.getCodZona()){
-            return this.peso * 10;
-        }else if (this.peso <= 500){
-            return (100 * 10) + ((this.peso - 100) * 15);
+    public float CalculoPago(float precio) {
+        if(precio <=0){
+            this.Precio = this.Precio*this.Cantidad;
+        
         }else{
-            return (100 * 10) + (400 * 15) + ((this.peso - 500) * 20);
+            System.out.println("Este artículo es gratis");
+            
         }
-*/
+        return Precio;
+    }
+
+    public String getProducto() {
+        return Producto;
+    }
+
+    public void setProducto(String Producto) {
+        this.Producto = Producto;
+    }
+
+    public float getPrecio() {
+        return Precio;
+    }
+
+    public void setPrecio(float Precio) {
+        this.Precio = Precio;
+    }
+
+    public float getCantidad() {
+        return Cantidad;
+    }
+
+    public void setCantidad(float Cantidad) {
+        this.Cantidad = Cantidad;
+    }
+
+    public ArrayList<Double> getProductos() {
+        return Productos;
+    }
+
+    public void setProductos(ArrayList<Double> Productos) {
+        this.Productos = Productos;
+    }
 }
-             }
+
+
+   
+             

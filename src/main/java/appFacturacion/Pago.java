@@ -12,11 +12,13 @@ import java.util.Date;
 public class Pago extends Orden{
     
     private double monto;
-    
-    public Pago(double monto, Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, String producto, double Precio, double cantidad, ArrayList<Double> muestra) {
+
+    public Pago(double monto, Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, String producto, float Precio, float cantidad, ArrayList<Double> muestra) {
         super(fecha, detalleOrden, pago, client, producto, Precio, cantidad, muestra);
         this.monto = monto;
     }
+    
+    
     public double montoLetras() {
         return monto;
 
