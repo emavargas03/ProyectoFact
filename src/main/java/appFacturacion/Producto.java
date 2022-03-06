@@ -1,14 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package appFacturacion;
 
-/**
- *
- * @author Anthony
- */
+import java.util.ArrayList;
+
+
 public class Producto extends DetalleOrden{
+    
+    
+    private String CodigoProducto;
+    private String Descripcion;
+    private double Costo;
+
+    public Producto(String codigoProducto, String descripcion, double costo, String producto, double Precio, double cantidad, ArrayList<Double> muestra) {
+        super(producto, Precio, cantidad, muestra);
+        this.CodigoProducto = codigoProducto;
+        this.Descripcion = descripcion;
+        this.Costo = costo;
+    }
+
+    
+
+    
     
 }

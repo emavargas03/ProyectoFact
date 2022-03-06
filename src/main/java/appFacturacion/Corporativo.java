@@ -1,14 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appFacturacion;
 
-/**
- *
- * @author Anthony
- */
-public class Corporativo extends Cliente{
-    
-}
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Corporativo extends Cliente {
+
+    private String telefono;
+    private String email;
+
+    public Corporativo(String telefono, String email, String Nombre, String Sexo, Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, String producto, double Precio, double cantidad, ArrayList<Double> muestra) {
+        super(Nombre, Sexo, fecha, detalleOrden, pago, client, producto, Precio, cantidad, muestra);
+        this.telefono = telefono;
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    }
+
+
