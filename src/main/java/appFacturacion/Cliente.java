@@ -3,13 +3,12 @@ package appFacturacion;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cliente extends Orden {
+public class Cliente {
 
     private String Nombre;
     private String Sexo;
 
-    public Cliente(String Nombre, String Sexo, Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, String producto, float Precio, float cantidad, ArrayList<Double> muestra) {
-        super(fecha, detalleOrden, pago, client, producto, Precio, cantidad, muestra);
+    public Cliente(String Nombre, String Sexo) {
         this.Nombre = Nombre;
         this.Sexo = Sexo;
     }

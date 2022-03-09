@@ -8,13 +8,11 @@ public class Corporativo extends Cliente {
     private String telefono;
     private String email;
 
-    public Corporativo(String telefono, String email, String Nombre, String Sexo, Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, String producto, float Precio, float cantidad, ArrayList<Double> muestra) {
-        super(Nombre, Sexo, fecha, detalleOrden, pago, client, producto, Precio, cantidad, muestra);
+    public Corporativo(String telefono, String email, String Nombre, String Sexo) {
+        super(Nombre, Sexo);
         this.telefono = telefono;
         this.email = email;
     }
-
-    
 
     public String getTelefono() {
         return telefono;
@@ -32,6 +30,4 @@ public class Corporativo extends Cliente {
         this.email = email;
     }
 
-    }
-
-
+}
