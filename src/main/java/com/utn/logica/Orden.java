@@ -28,15 +28,24 @@ public class Orden {
         float total=0f;
         
         for (Producto producto : detalle) {
-            total+=(producto.getCantidad()*(producto.getCosto()+(producto.getCosto()*producto.getUtilidad())));
+            total+=(producto.getCosto()+(producto.getCosto()*producto.getUtilidad()));
+            //total+=(producto.getCantidad()*(producto.getCosto()+(producto.getCosto()*producto.getUtilidad())));
         }
         
         return total;
     }
     
     public float calculoImpuesto(){
+        ArrayList<Producto> detalle=detalleOrden.getProductos();
+        float total=0f;
         
-        return this.calculoTotal()+(this.calculoTotal()*impuesto);
+        for (Producto producto : detalle) {
+            double totalU=producto.getCosto()*producto.getUtilidad();
+            double totalInc=producto.getCosto()+totalU;
+            total+=totalInc+(totalInc*producto.getImpuesto());
+        }
+        
+        return total;
     }
     
 

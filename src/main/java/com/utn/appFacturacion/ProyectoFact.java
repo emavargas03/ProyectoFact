@@ -21,11 +21,20 @@ public class ProyectoFact {
         leerArchivos archivos=new leerArchivos();
         
         
-        ArrayList<Corporativo> clientesCorp= archivos.leer();
+        ArrayList<Corporativo> clientesCorp= archivos.leerCorporativos();
         
         for (Corporativo corporativo : clientesCorp) {
-            JOptionPane.showMessageDialog(null, corporativo.toString());
+            //JOptionPane.showMessageDialog(null, corporativo.toString());
         }
+        
+        ArrayList<Producto> productos = archivos.leerProductos();
+        
+        for (Producto producto : productos) {
+            JOptionPane.showMessageDialog(null, producto.toString());
+        }
+        
+        
+        
     }
     
     

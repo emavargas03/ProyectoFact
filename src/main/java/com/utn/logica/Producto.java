@@ -7,16 +7,27 @@ public class Producto {
     private String CodigoProducto;
     private String Descripcion;
     private double Costo;
-    protected int cantidad;
     protected double utilidad;
+    protected double impuesto;
 
-    public Producto(String CodigoProducto, String Descripcion, double Costo, int cantidad, double utilidad) {
+    public Producto(String CodigoProducto, String Descripcion, double Costo, double utilidad, double impuesto) {
         this.CodigoProducto = CodigoProducto;
         this.Descripcion = Descripcion;
         this.Costo = Costo;
-        this.cantidad=cantidad;
         this.utilidad=utilidad;
+        this.impuesto=impuesto;
     }
+
+    @Override
+    public String toString() {
+        return "Codigo: "+getCodigoProducto()+
+                "\nNombre: "+getDescripcion()+
+                "\nPrecio: "+getCosto()+
+                "\nUtilidad: "+getUtilidad()
+                +"\nImpuesto: "+getImpuesto();
+    }
+    
+    
 
     public String getCodigoProducto() {
         return CodigoProducto;
@@ -42,20 +53,7 @@ public class Producto {
         this.Costo = Costo;
     }
 
-    /**
-     * @return the cantidad
-     */
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    /**
-     * @param cantidad the cantidad to set
-     */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
+    
     /**
      * @return the utilidad
      */
@@ -68,6 +66,20 @@ public class Producto {
      */
     public void setUtilidad(double utilidad) {
         this.utilidad = utilidad;
+    }
+
+    /**
+     * @return the impuesto
+     */
+    public double getImpuesto() {
+        return impuesto;
+    }
+
+    /**
+     * @param impuesto the impuesto to set
+     */
+    public void setImpuesto(double impuesto) {
+        this.impuesto = impuesto;
     }
 
 
