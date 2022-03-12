@@ -1,14 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appFacturacion;
 
-/**
- *
- * @author Anthony
- */
-public class Pago extends Orden{
-    
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Pago {
+
+    private double monto;
+
+    public Pago(double monto) {
+        this.monto = monto;
+    }
+
+    public double montoLetras() {
+        return monto;
+
+    }
 }
