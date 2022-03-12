@@ -1,5 +1,5 @@
 
-package appFacturacion;
+package com.utn.logica;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,13 +12,33 @@ public class Orden {
     private DetalleOrden detalleOrden;
     private Pago pago;
     private Cliente client;
-
-    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client) {
+    protected float impuesto;
+    
+    
+    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto) {
         this.fecha = fecha;
         this.detalleOrden = detalleOrden;
         this.pago = pago;
         this.client = client;
+        this.impuesto=impuesto;
     }
+    
+    public float calculoTotal(){
+        ArrayList<Producto> detalle=detalleOrden.getProductos();
+        float total=0f;
+        
+        for (Producto producto : detalle) {
+            total+=(producto.getCantidad()*(producto.getCosto()+(producto.getCosto()*producto.getUtilidad())));
+        }
+        
+        return total;
+    }
+    
+    public float calculoImpuesto(){
+        
+        return this.calculoTotal()+(this.calculoTotal()*impuesto);
+    }
+    
 
     public Date getFecha() {
         return fecha;
@@ -50,6 +70,20 @@ public class Orden {
 
     public void setClient(Cliente client) {
         this.client = client;
+    }
+
+    /**
+     * @return the impuesto
+     */
+    public float getImpuesto() {
+        return impuesto;
+    }
+
+    /**
+     * @param impuesto the impuesto to set
+     */
+    public void setImpuesto(float impuesto) {
+        this.impuesto = impuesto;
     }
 
     

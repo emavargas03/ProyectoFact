@@ -1,4 +1,4 @@
-package appFacturacion;
+package com.utn.logica;
 
 import java.util.ArrayList;
 import java.util.Date;

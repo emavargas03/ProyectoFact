@@ -1,9 +1,9 @@
-package appFacturacion;
+package com.utn.logica;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cliente {
+public abstract class Cliente {
 
     private String Nombre;
     private String Sexo;
