@@ -15,14 +15,19 @@ public class Orden {
     private Pago pago;
     private Cliente client;
     protected float impuesto;
+    private boolean descuento;
+    private double porDesc;
     
     
-    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto) {
+    
+    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto,boolean descuento,double porDesc) {
         this.fecha = fecha;
         this.detalleOrden = detalleOrden;
         this.pago = pago;
         this.client = client;
         this.impuesto=impuesto;
+        this.descuento=descuento;
+        this.porDesc=porDesc;
     }
     
     public float calculoTotal(){
@@ -31,7 +36,7 @@ public class Orden {
         
         for (Producto producto : detalle) {
             total+=(producto.getCosto()+(producto.getCosto()*producto.getUtilidad()));
-            //total+=(producto.getCantidad()*(producto.getCosto()+(producto.getCosto()*producto.getUtilidad())));
+            
         }
         
         return total;
@@ -110,29 +115,8 @@ public class Orden {
     }
     
     
-    
-    
     public void finalizarOrden(boolean aplicarDesc,double porcentaje){
-        FileWriter flwriter = null;
-        try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
-			flwriter = new FileWriter("C:\\archivos\\estudiantes.txt", true);
-			BufferedWriter bufferedWriter=new BufferedWriter(flwriter);
-			
-                        bufferedWriter.write("");
-			bufferedWriter.close();
-			System.out.println("Archivo modificado satisfactoriamente..");
- 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (flwriter != null) {
-				try {
-					flwriter.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+        
     }
 
     

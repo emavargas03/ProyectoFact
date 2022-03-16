@@ -56,12 +56,35 @@ public class Archivos {
         return productos;
     }
     
-    public void agregarOrden(){
+    public void agregarOrden(String orden) throws FileNotFoundException{
+        File file = new File(System.getProperty("user.dir")+"\\Data\\Transacciones.txt");
+        Scanner sc = new Scanner(file);
+        String strOrdenes=sc.nextLine();
         
+        FileWriter flwriter = null;
+        try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
+                flwriter = new FileWriter(System.getProperty("user.dir")+"\\Data\\Transacciones", true);
+                BufferedWriter bufferedWriter=new BufferedWriter(flwriter);
+
+                bufferedWriter.write(strOrdenes+orden);
+                bufferedWriter.close();
+                System.out.println("Archivo modificado satisfactoriamente..");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            } finally {
+                if (flwriter != null) {
+                    try {
+                        flwriter.close();
+                    } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     
     public double tipoCambio() throws FileNotFoundException{
-        File file = new File(System.getProperty("user.dir")+"\\Data\\Productos.txt");
+        File file = new File(System.getProperty("user.dir")+"\\Data\\TipoCambio.txt");
         Scanner sc = new Scanner(file);
         String strCambio=sc.nextLine();
         double cambio=Double.parseDouble(strCambio);
