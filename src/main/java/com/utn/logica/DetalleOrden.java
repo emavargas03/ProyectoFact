@@ -5,18 +5,24 @@ import java.util.ArrayList;
 public class DetalleOrden {
     
     private ArrayList<Producto> Productos;
-    protected int cantidad;
     
     
-    public DetalleOrden(ArrayList<Producto> productos,int cantidad) {
-        this.cantidad=cantidad;
+    
+    public DetalleOrden(ArrayList<Producto> productos) {
+        
         this.Productos = productos;
     }
     
 
     
     public String toString() {
-        return "\nProducto: ";
+        String productos="";
+        for (Producto Producto1 : Productos) {
+            productos+="\nCodigo: "+Producto1.getCodigoProducto()+
+                    "\nDescripcion: "+Producto1.getDescripcion();
+        }
+        
+        return "\nDetalle Orden"+productos;
     }
     
     public ArrayList<Producto> getProductos() {
@@ -30,16 +36,16 @@ public class DetalleOrden {
     /**
      * @return the cantidad
      */
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    /**
-     * @param cantidad the cantidad to set
-     */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+//    public int getCantidad() {
+//        return cantidad;
+//    }
+//
+//    /**
+//     * @param cantidad the cantidad to set
+//     */
+//    public void setCantidad(int cantidad) {
+//        this.cantidad = cantidad;
+//    }
 }
 
 

@@ -1,6 +1,8 @@
 
 package com.utn.logica;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -48,6 +50,13 @@ public class Orden {
         return total;
     }
     
+    public double aplicarDescuento(double descuento){
+        double totalDesc=0;
+        totalDesc=this.calculoImpuesto()+(this.calculoImpuesto()*descuento);
+        
+        return totalDesc;
+    }
+    
 
     public Date getFecha() {
         return fecha;
@@ -93,6 +102,37 @@ public class Orden {
      */
     public void setImpuesto(float impuesto) {
         this.impuesto = impuesto;
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+    
+    
+    
+    
+    public void finalizarOrden(boolean aplicarDesc,double porcentaje){
+        FileWriter flwriter = null;
+        try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
+			flwriter = new FileWriter("C:\\archivos\\estudiantes.txt", true);
+			BufferedWriter bufferedWriter=new BufferedWriter(flwriter);
+			
+                        bufferedWriter.write("");
+			bufferedWriter.close();
+			System.out.println("Archivo modificado satisfactoriamente..");
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {
+					flwriter.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
     }
 
     

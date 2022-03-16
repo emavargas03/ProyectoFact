@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class leerArchivos {
+public class Archivos {
  
            
     public ArrayList<Corporativo> leerCorporativos() throws Exception{
         // pass the path to the file as a parameter
         File file = new File(System.getProperty("user.dir")+"\\Data\\ClientesCorporativos.txt");
         Scanner sc = new Scanner(file);
-        
-        
         
         ArrayList<Corporativo> corporativos=new ArrayList<Corporativo>();
         
@@ -28,9 +26,6 @@ public class leerArchivos {
             Corporativo cliente=new Corporativo(nom, sexo, tel, email);
             corporativos.add(cliente);
         }
-        
-        
-        
         return corporativos;
       }
     
@@ -59,6 +54,19 @@ public class leerArchivos {
         
         
         return productos;
+    }
+    
+    public void agregarOrden(){
+        
+    }
+    
+    public double tipoCambio() throws FileNotFoundException{
+        File file = new File(System.getProperty("user.dir")+"\\Data\\Productos.txt");
+        Scanner sc = new Scanner(file);
+        String strCambio=sc.nextLine();
+        double cambio=Double.parseDouble(strCambio);
+        
+        return cambio;
     }
     
     

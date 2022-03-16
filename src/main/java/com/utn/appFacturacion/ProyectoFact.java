@@ -5,7 +5,7 @@
 package com.utn.appFacturacion;
 
 import com.utn.logica.*;
-import com.utn.utilidades.leerArchivos;
+import com.utn.utilidades.Archivos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -18,25 +18,17 @@ public class ProyectoFact {
         TipoTarjeta visa = new TipoTarjeta("Visa");
         TipoTarjeta mastercard = new TipoTarjeta("Master card");
         TipoTarjeta americanexpress = new TipoTarjeta("American Express");
-        leerArchivos archivos=new leerArchivos();
+        Archivos archivos=new Archivos();
         
         
         ArrayList<Corporativo> clientesCorp= archivos.leerCorporativos();
-        
-        for (Corporativo corporativo : clientesCorp) {
-            //JOptionPane.showMessageDialog(null, corporativo.toString());
-        }
         
         ArrayList<Producto> productos = archivos.leerProductos();
         
         for (Producto producto : productos) {
             JOptionPane.showMessageDialog(null, producto.toString());
-        }
-        
-        
+        }     
         
     }
-    
-    
     
 }
