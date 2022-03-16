@@ -1,6 +1,8 @@
 
 package com.utn.logica;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -13,14 +15,19 @@ public class Orden {
     private Pago pago;
     private Cliente client;
     protected float impuesto;
+    private boolean descuento;
+    private double porDesc;
     
     
-    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto) {
+    
+    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto,boolean descuento,double porDesc) {
         this.fecha = fecha;
         this.detalleOrden = detalleOrden;
         this.pago = pago;
         this.client = client;
         this.impuesto=impuesto;
+        this.descuento=descuento;
+        this.porDesc=porDesc;
     }
     
     public float calculoTotal(){
@@ -29,7 +36,7 @@ public class Orden {
         
         for (Producto producto : detalle) {
             total+=(producto.getCosto()+(producto.getCosto()*producto.getUtilidad()));
-            //total+=(producto.getCantidad()*(producto.getCosto()+(producto.getCosto()*producto.getUtilidad())));
+            
         }
         
         return total;
@@ -46,6 +53,13 @@ public class Orden {
         }
         
         return total;
+    }
+    
+    public double aplicarDescuento(double descuento){
+        double totalDesc=0;
+        totalDesc=this.calculoImpuesto()+(this.calculoImpuesto()*descuento);
+        
+        return totalDesc;
     }
     
 
@@ -93,6 +107,16 @@ public class Orden {
      */
     public void setImpuesto(float impuesto) {
         this.impuesto = impuesto;
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+    
+    
+    public void finalizarOrden(boolean aplicarDesc,double porcentaje){
+        
     }
 
     
