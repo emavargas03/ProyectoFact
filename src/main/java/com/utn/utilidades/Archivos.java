@@ -9,7 +9,11 @@ import java.util.Scanner;
 
 public class Archivos {
  
-           
+    public Archivos(){
+        
+    }    
+    
+    
     public ArrayList<Corporativo> leerCorporativos() throws Exception{
         // pass the path to the file as a parameter
         File file = new File(System.getProperty("user.dir")+"\\Data\\ClientesCorporativos.txt");

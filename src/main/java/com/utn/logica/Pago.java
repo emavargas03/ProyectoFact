@@ -1,5 +1,6 @@
 package com.utn.logica;
 
+import com.utn.utilidades.Numero_a_Letra;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +12,12 @@ public class Pago {
         this.monto = monto;
     }
 
-    public double montoLetras() {
-        return monto;
-
+    public String montoLetras() {
+        Numero_a_Letra d= new Numero_a_Letra();
+        
+        String letras= d.Convertir(monto+"", true);
+        
+        
+        return letras;        
     }
 }

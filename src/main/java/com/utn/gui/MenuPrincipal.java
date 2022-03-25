@@ -5,33 +5,81 @@
  */
 package com.utn.gui;
 import com.utn.logica.*;
+import com.utn.utilidades.Archivos;
 import java.awt.Color;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 /**
  *
  * @author Anthony
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
-
+    ArrayList<Producto> listaProductos;
+    ArrayList<Producto> listaCompra;
+    ArrayList<Corporativo> clientesCorp;
+    Archivos archivos;
+    DefaultTableModel modelo;
+    ArrayList<TipoTarjeta> tarjetas;
     /**
      * Creates new form MneuPrincipal
      */
-    public MenuPrincipal() {
+    public MenuPrincipal() throws Exception {
         
         ArrayList<Producto> productos;
         
-        this.getContentPane().setBackground(new Color(255,255,255));
+        //this.getContentPane().setBackground(new Color(255,255,255));
         initComponents();
        
-        for(int i = 1; i<=100;i++){
-            cmbCantidadProductos.addItem(""+i);
-        }
+        archivos=new Archivos();
+        listaCompra=new ArrayList<Producto>();
+        clientesCorp=new ArrayList<Corporativo>();
         
-      
+        instanciaTarjetas();
+        llenarCombo();
+        llenarClientesCorp();
+        spDir.setVisible(false);
+        cmbMoneda.setVisible(false);
+        cmbTarjetas.setVisible(false);
+        
+        
+        String col[] = {"Codigo","Desc","Precio"};
+        modelo = new DefaultTableModel(col,0);
+        tblLista.setModel(modelo);
         
     }
+    
+    
+    
+    public void instanciaTarjetas(){
+        TipoTarjeta visa = new TipoTarjeta("Visa");
+        TipoTarjeta mastercard = new TipoTarjeta("Master card");
+        TipoTarjeta americanexpress = new TipoTarjeta("American Express");
+        tarjetas=new ArrayList<TipoTarjeta>();
+        tarjetas.add(visa);
+        tarjetas.add(mastercard);
+        tarjetas.add(americanexpress);
+    }
+    
+    public void llenarClientesCorp() throws Exception{
+        clientesCorp=archivos.leerCorporativos();
+    }
+   
+    
+    public void llenarCombo() throws Exception{
+        listaProductos=archivos.leerProductos();
+        for(Producto producto:listaProductos){
+            cmbProducto.addItem(producto.mostrarComboB());
+        }
+        
+        for(TipoTarjeta tarjeta: tarjetas){
+            cmbTarjetas.addItem(tarjeta.getDescripcion());
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,14 +90,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
-        cmbCantidadProductos = new javax.swing.JComboBox<>();
-        lblProducto = new javax.swing.JLabel();
-        lblProducto1 = new javax.swing.JLabel();
-        cbmProductos = new javax.swing.JComboBox<>();
-        btnAddProducto = new javax.swing.JButton();
+        btngCliente = new javax.swing.ButtonGroup();
+        btngPago = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLista = new javax.swing.JTable();
+        cmbProducto = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
+        cmbTarjetas = new javax.swing.JComboBox<>();
+        rbCorp = new javax.swing.JRadioButton();
+        rbOca = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        cmbCliCorp = new javax.swing.JComboBox<>();
+        spDir = new javax.swing.JScrollPane();
+        txtaDir = new javax.swing.JTextArea();
+        bgContado = new javax.swing.JRadioButton();
+        bgCredito = new javax.swing.JRadioButton();
+        cmbMoneda = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú Principal");
@@ -60,129 +117,131 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 0));
+        tblLista.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+            }
+        ));
+        jScrollPane1.setViewportView(tblLista);
 
-        lblTitulo.setBackground(new java.awt.Color(204, 204, 204));
-        lblTitulo.setFont(new java.awt.Font("Monotype Corsiva", 0, 36)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(153, 0, 51));
-        lblTitulo.setText("Pantalla de Facturación de Productos ");
-
-        cmbCantidadProductos.setBackground(new java.awt.Color(255, 204, 204));
-        cmbCantidadProductos.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        cmbCantidadProductos.setToolTipText("");
-        cmbCantidadProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 0), 2));
-        cmbCantidadProductos.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCantidadProductosActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
-        lblProducto.setFont(new java.awt.Font("Perpetua Titling MT", 0, 12)); // NOI18N
-        lblProducto.setForeground(new java.awt.Color(102, 0, 0));
-        lblProducto.setText("Seleccione un producto");
+        btnFinalizar.setText("Finalizar");
 
-        lblProducto1.setFont(new java.awt.Font("Perpetua Titling MT", 0, 12)); // NOI18N
-        lblProducto1.setForeground(new java.awt.Color(102, 0, 0));
-        lblProducto1.setText("Cantidad de producto");
-
-        cbmProductos.setBackground(new java.awt.Color(255, 204, 204));
-        cbmProductos.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        cbmProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pantalla Led", "Control Remoto", "Mause", "Teclado Mecánico", "Cable USB" }));
-        cbmProductos.setToolTipText("");
-        cbmProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 0), 2));
-        cbmProductos.addActionListener(new java.awt.event.ActionListener() {
+        btngCliente.add(rbCorp);
+        rbCorp.setSelected(true);
+        rbCorp.setText("Corporativo");
+        rbCorp.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbCorpStateChanged(evt);
+            }
+        });
+        rbCorp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbmProductosActionPerformed(evt);
+                rbCorpActionPerformed(evt);
             }
         });
 
-        btnAddProducto.setBackground(new java.awt.Color(255, 204, 204));
-        btnAddProducto.setText("Agregar Producto");
-        btnAddProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddProductoActionPerformed(evt);
+        btngCliente.add(rbOca);
+        rbOca.setText("Ocasional");
+
+        jLabel1.setText("Tipo Cliente");
+
+        txtaDir.setColumns(20);
+        txtaDir.setRows(5);
+        spDir.setViewportView(txtaDir);
+
+        btngPago.add(bgContado);
+        bgContado.setSelected(true);
+        bgContado.setText("Contado");
+
+        btngPago.add(bgCredito);
+        bgCredito.setText("Credito");
+        bgCredito.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                bgCreditoStateChanged(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(209, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(cmbCantidadProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(24, 24, 24)
-                    .addComponent(cbmProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(237, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(lblTitulo)
-                .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblProducto)
-                    .addComponent(lblProducto1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbCantidadProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(557, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(141, 141, 141)
-                    .addComponent(cbmProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(559, Short.MAX_VALUE)))
-        );
-
-        cmbCantidadProductos.getAccessibleContext().setAccessibleParent(cmbCantidadProductos);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        cmbMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colones", "Dolares" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bgContado)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bgCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbTarjetas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAgregar))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbOca)
+                            .addComponent(spDir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCliCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbCorp))))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbCorp)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbCliCorp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(rbOca)
+                        .addGap(18, 18, 18)
+                        .addComponent(spDir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFinalizar)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bgContado)
+                    .addComponent(bgCredito)
+                    .addComponent(cmbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,20 +251,36 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseExited
 
-    private void cmbCantidadProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCantidadProductosActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        listaCompra.add(listaProductos.get(cmbProducto.getSelectedIndex()));
+        String codigo=listaProductos.get(cmbProducto.getSelectedIndex()).getCodigoProducto();
+        String desc=listaProductos.get(cmbProducto.getSelectedIndex()).getDescripcion();
+        String precio=listaProductos.get(cmbProducto.getSelectedIndex()).getCosto()+"";
+        String prod[]={codigo,desc,precio};
+        modelo.addRow(prod);
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
-    }//GEN-LAST:event_cmbCantidadProductosActionPerformed
-
-    private void cbmProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbmProductosActionPerformed
-        for(Producto objeto : ArrayListProducto ) {
-            combito.addItem(objeto.getNombre());
+    private void rbCorpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbCorpStateChanged
+        if(rbCorp.isSelected()){
+            cmbCliCorp.setVisible(true);
+            spDir.setVisible(false);
+        }else{
+            cmbCliCorp.setVisible(false);
+            spDir.setVisible(true);
         }
-    }//GEN-LAST:event_cbmProductosActionPerformed
+    }//GEN-LAST:event_rbCorpStateChanged
 
-    private void btnAddProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductoActionPerformed
-        
-        
-    }//GEN-LAST:event_btnAddProductoActionPerformed
+    private void rbCorpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCorpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbCorpActionPerformed
+
+    private void bgCreditoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bgCreditoStateChanged
+        if(bgCredito.isSelected()){
+            cmbTarjetas.setVisible(true);
+        }else{
+            cmbTarjetas.setVisible(false);
+        }
+    }//GEN-LAST:event_bgCreditoStateChanged
 
     /**
      * @param args the command line arguments
@@ -238,19 +313,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                try {
+                    new MenuPrincipal().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddProducto;
-    private javax.swing.JComboBox<String> cbmProductos;
-    private javax.swing.JComboBox<String> cmbCantidadProductos;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblProducto;
-    private javax.swing.JLabel lblProducto1;
-    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JRadioButton bgContado;
+    private javax.swing.JRadioButton bgCredito;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnFinalizar;
+    private javax.swing.ButtonGroup btngCliente;
+    private javax.swing.ButtonGroup btngPago;
+    private javax.swing.JComboBox<String> cmbCliCorp;
+    private javax.swing.JComboBox<String> cmbMoneda;
+    private javax.swing.JComboBox<String> cmbProducto;
+    private javax.swing.JComboBox<String> cmbTarjetas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbCorp;
+    private javax.swing.JRadioButton rbOca;
+    private javax.swing.JScrollPane spDir;
+    private javax.swing.JTable tblLista;
+    private javax.swing.JTextArea txtaDir;
     // End of variables declaration//GEN-END:variables
 }

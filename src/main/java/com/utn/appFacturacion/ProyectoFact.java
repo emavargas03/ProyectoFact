@@ -4,6 +4,7 @@
  */
 package com.utn.appFacturacion;
 
+import com.utn.gui.MenuPrincipal;
 import com.utn.logica.*;
 import com.utn.utilidades.Archivos;
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public class ProyectoFact {
         TipoTarjeta visa = new TipoTarjeta("Visa");
         TipoTarjeta mastercard = new TipoTarjeta("Master card");
         TipoTarjeta americanexpress = new TipoTarjeta("American Express");
+        ArrayList<TipoTarjeta> tarjetas=new ArrayList<TipoTarjeta>();
+        tarjetas.add(visa);
+        tarjetas.add(mastercard);
+        tarjetas.add(americanexpress);
         Archivos archivos=new Archivos();
         
         
@@ -25,10 +30,9 @@ public class ProyectoFact {
         
         ArrayList<Producto> productos = archivos.leerProductos();
         
-        for (Producto producto : productos) {
-            JOptionPane.showMessageDialog(null, producto.toString());
-        }     
+            
         
+        new MenuPrincipal().setVisible(true);
     }
     
 }
