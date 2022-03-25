@@ -27,6 +27,10 @@ public class Producto {
                 +"\nImpuesto: "+getImpuesto();
     }
     
+    public String mostrarComboB(){
+        return getCodigoProducto()+" "+getDescripcion();
+    }
+    
     
 
     public String getCodigoProducto() {
