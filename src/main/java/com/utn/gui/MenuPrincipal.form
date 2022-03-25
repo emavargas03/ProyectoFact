@@ -48,13 +48,11 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cmbTarjetas" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane1" alignment="1" min="-2" pref="452" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="cmbProducto" min="-2" pref="288" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="jScrollPane1" alignment="1" min="-2" pref="452" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="cmbProducto" min="-2" pref="288" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -64,16 +62,17 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="rbOca" min="-2" max="-2" attributes="0"/>
-                          <Component id="spDir" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="cmbCliCorp" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="btnFinalizar" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                           <Component id="rbCorp" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbCliCorp" alignment="0" max="32767" attributes="0"/>
+                          <Component id="spDir" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnFinalizar" alignment="0" pref="194" max="32767" attributes="0"/>
+                          <Component id="lblDir" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -99,7 +98,9 @@
                       <Component id="cmbCliCorp" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="rbOca" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="lblDir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="spDir" min="-2" pref="71" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnFinalizar" min="-2" max="-2" attributes="0"/>
@@ -214,6 +215,8 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="toolTipText" type="java.lang.String" value="Direccion"/>
+            <Property name="autoscrolls" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -226,6 +229,9 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Contado"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="bgContadoStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="bgCredito">
       <Properties>
@@ -250,6 +256,11 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Direccion"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

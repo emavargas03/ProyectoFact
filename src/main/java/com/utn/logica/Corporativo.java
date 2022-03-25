@@ -22,6 +22,10 @@ public class Corporativo extends Cliente {
                 "Email: "+this.email;
     }
     
+    public String mostrarLista(){
+        return this.getNombre()+" "+this.getEmail();
+    }
+    
     
 
     public String getTelefono() {

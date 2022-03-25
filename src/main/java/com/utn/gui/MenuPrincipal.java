@@ -41,7 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         llenarCombo();
         llenarClientesCorp();
         spDir.setVisible(false);
-        cmbMoneda.setVisible(false);
+        lblDir.setVisible(false);
         cmbTarjetas.setVisible(false);
         
         
@@ -65,7 +65,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     public void llenarClientesCorp() throws Exception{
         clientesCorp=archivos.leerCorporativos();
+        for (Corporativo cliente : clientesCorp) {
+            cmbCliCorp.addItem(cliente.mostrarLista());
+        }
     }
+    
    
     
     public void llenarCombo() throws Exception{
@@ -107,6 +111,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         bgContado = new javax.swing.JRadioButton();
         bgCredito = new javax.swing.JRadioButton();
         cmbMoneda = new javax.swing.JComboBox<>();
+        lblDir = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú Principal");
@@ -160,11 +165,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         txtaDir.setColumns(20);
         txtaDir.setRows(5);
+        txtaDir.setToolTipText("Direccion");
+        txtaDir.setAutoscrolls(false);
         spDir.setViewportView(txtaDir);
 
         btngPago.add(bgContado);
         bgContado.setSelected(true);
         bgContado.setText("Contado");
+        bgContado.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                bgContadoStateChanged(evt);
+            }
+        });
 
         btngPago.add(bgCredito);
         bgCredito.setText("Credito");
@@ -175,6 +187,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         cmbMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colones", "Dolares" }));
+
+        lblDir.setText("Direccion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,25 +205,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(bgCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cmbTarjetas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAgregar))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(rbOca)
-                            .addComponent(spDir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbCliCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbCorp))))
-                .addContainerGap(116, Short.MAX_VALUE))
+                            .addComponent(rbCorp)
+                            .addComponent(cmbCliCorp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spDir, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addComponent(lblDir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +245,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(cmbCliCorp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
                         .addComponent(rbOca)
-                        .addGap(18, 18, 18)
+                        .addGap(35, 35, 35)
+                        .addComponent(lblDir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(spDir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnFinalizar)))
@@ -264,9 +280,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if(rbCorp.isSelected()){
             cmbCliCorp.setVisible(true);
             spDir.setVisible(false);
+            lblDir.setVisible(false);
         }else{
             cmbCliCorp.setVisible(false);
             spDir.setVisible(true);
+            lblDir.setVisible(true);
         }
     }//GEN-LAST:event_rbCorpStateChanged
 
@@ -281,6 +299,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             cmbTarjetas.setVisible(false);
         }
     }//GEN-LAST:event_bgCreditoStateChanged
+
+    private void bgContadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bgContadoStateChanged
+        if(bgContado.isSelected()){
+            cmbMoneda.setVisible(true);
+        }else{
+            cmbMoneda.setVisible(false);
+        }
+    }//GEN-LAST:event_bgContadoStateChanged
 
     /**
      * @param args the command line arguments
@@ -335,6 +361,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTarjetas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDir;
     private javax.swing.JRadioButton rbCorp;
     private javax.swing.JRadioButton rbOca;
     private javax.swing.JScrollPane spDir;
