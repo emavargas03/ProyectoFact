@@ -1,6 +1,7 @@
 
 package com.utn.logica;
 
+import com.utn.utilidades.Archivos;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -14,18 +15,18 @@ public class Orden {
     private DetalleOrden detalleOrden;
     private Pago pago;
     private Cliente client;
-    protected float impuesto;
+    
     private boolean descuento;
-    private double porDesc;
+    private String porDesc;
     
     
     
-    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client, float impuesto,boolean descuento,double porDesc) {
+    public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client,boolean descuento,String porDesc) {
         this.fecha = fecha;
         this.detalleOrden = detalleOrden;
         this.pago = pago;
         this.client = client;
-        this.impuesto=impuesto;
+//        this.impuesto=impuesto;
         this.descuento=descuento;
         this.porDesc=porDesc;
     }
@@ -55,13 +56,7 @@ public class Orden {
         return total;
     }
     
-    public double aplicarDescuento(double descuento){
-        double totalDesc=0;
-        totalDesc=this.calculoImpuesto()+(this.calculoImpuesto()*descuento);
         
-        return totalDesc;
-    }
-    
 
     public Date getFecha() {
         return fecha;
@@ -98,16 +93,7 @@ public class Orden {
     /**
      * @return the impuesto
      */
-    public float getImpuesto() {
-        return impuesto;
-    }
 
-    /**
-     * @param impuesto the impuesto to set
-     */
-    public void setImpuesto(float impuesto) {
-        this.impuesto = impuesto;
-    }
 
     @Override
     public String toString() {
@@ -115,8 +101,26 @@ public class Orden {
     }
     
     
-    public void finalizarOrden(boolean aplicarDesc,double porcentaje){
+    public void finalizarOrden(int tipoCliente,int tipoPago){
+        Archivos archivo=new Archivos();
         
+        String orden="Cliente: "+client.getNombre()+" Fecha: "+fecha.toString();
+        
+        float totalOficial= 0.0f;
+        if(descuento){
+            String porc="0."+porDesc;
+            float descuento = Float.parseFloat(porc);
+            totalOficial=this.calculoImpuesto()-(this.calculoImpuesto()*descuento);
+        }else{
+            totalOficial=this.calculoImpuesto();
+        }
+        if(tipoPago==0){
+                Credito cred=(Credito) this.getPago();
+                orden+="Tipo Pago: "+cred.getNoTarjetaCredito();
+        }
+        
+        
+        orden+=" Total: "+totalOficial;
     }
 
     

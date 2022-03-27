@@ -9,8 +9,7 @@ public class Contado extends Pago {
 
     private String tipoMoneda;
 
-    public Contado(String tipoMoneda, double monto) {
-        super(monto);
+    public Contado(String tipoMoneda) {
         this.tipoMoneda = tipoMoneda;
     }
 

@@ -13,6 +13,28 @@ public class Archivos {
         
     }    
     
+    public void guardarOrden(String orden){
+        FileWriter flwriter = null;
+		try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
+			flwriter = new FileWriter(System.getProperty("user.dir")+"\\Data\\RegistroOrdenes.txt", true);
+			BufferedWriter bfwriter = new BufferedWriter(flwriter);
+			bfwriter.write("\noliwis");
+			bfwriter.close();
+			System.out.println("Archivo modificado satisfactoriamente..");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (flwriter != null) {
+				try {
+					flwriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+    }
+    
     
     public ArrayList<Corporativo> leerCorporativos() throws Exception{
         // pass the path to the file as a parameter
