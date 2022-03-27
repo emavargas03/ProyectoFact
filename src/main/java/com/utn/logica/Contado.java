@@ -9,11 +9,17 @@ public class Contado extends Pago {
 
     private String tipoMoneda;
 
-    public Contado(String tipoMoneda, double monto) {
-        super(monto);
+    public Contado(String tipoMoneda) {
         this.tipoMoneda = tipoMoneda;
     }
 
+    @Override
+    public String toString() {
+        return "Tipo Moneda: "+ this.getTipoMoneda();
+    }
+
+    
+    
     
 
     public String getTipoMoneda() {

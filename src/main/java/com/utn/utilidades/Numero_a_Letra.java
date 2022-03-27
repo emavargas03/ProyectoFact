@@ -1,9 +1,8 @@
 package com.utn.utilidades;
 import java.util.regex.Pattern;
-/**
- * @web http://jc-mouse.blogspot.com/
- * @author Mouse
- */
+
+
+
 public class Numero_a_Letra {
 
     private final String[] UNIDADES = {"", "un ", "dos ", "tres ", "cuatro ", "cinco ", "seis ", "siete ", "ocho ", "nueve "};
@@ -30,7 +29,7 @@ public class Numero_a_Letra {
             //se divide el numero 0000000,00 -> entero y decimal
             String Num[] = numero.split(",");            
             //de da formato al numero decimal
-            parte_decimal = Num[1];
+            parte_decimal = Num[1] + "/100 colones.";
             //se convierte el numero a literal
             if (Integer.parseInt(Num[0]) == 0) {//si el valor es cero
                 literal = "cero ";
@@ -47,9 +46,9 @@ public class Numero_a_Letra {
             }
             //devuelve el resultado en mayusculas o minusculas
             if (mayusculas) {
-                return (literal).toUpperCase();
+                return (literal + parte_decimal).toUpperCase();
             } else {
-                return (literal);
+                return (literal + parte_decimal);
             }
         } else {//error, no se puede convertir
             return literal = null;
