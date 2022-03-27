@@ -21,6 +21,15 @@ public class Ocasional extends Cliente {
         this.direccion = direccion;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente: "+this.getNombre()+
+                "\nDireccion: "+this.getDireccion()
+                +"\nSexo: "+this.getSexo();
+    }
+    
+    
+
     public String getDireccion() {
         return direccion;
     }

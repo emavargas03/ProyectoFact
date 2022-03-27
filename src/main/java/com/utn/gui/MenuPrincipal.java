@@ -51,7 +51,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cmbTarjetas.setVisible(false);
         txtfDesc.setEnabled(false);
         txtfNoTarjeta.setVisible(false);
-        
+        lblNombre.setVisible(false);
+        txtfNombre.setVisible(false);
+        lblSexo.setVisible(false);
+        cmbSexo.setVisible(false);
         
         String col[] = {"Codigo","Desc","Precio","Utilidad"};
         modelo = new DefaultTableModel(col,0);
@@ -91,6 +94,72 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         for(TipoTarjeta tarjeta: tarjetas){
             cmbTarjetas.addItem(tarjeta.getDescripcion());
+        }
+    }
+    
+    public void limpiarPantalla(){
+        listaCompra.clear();
+        modelo.setRowCount(0);
+        total=0;
+        lblTotal.setText(total+"");
+    }
+    
+    public void finalizar(){
+        String desclimit=txtfDesc.getText();
+        if(chbDesc.isSelected()){
+            if(desclimit.length()>2 || desclimit.isBlank()){
+                JOptionPane.showMessageDialog(null, "El porcentaje de descuento debe de ser de uno o dos caracteres");
+                txtfDesc.setText("");
+            }
+            
+            
+        }else{
+            
+        DetalleOrden deta=new DetalleOrden(listaCompra);
+            Pago pag;
+            Cliente client = null;
+            int tipoCliente,tipoPago;
+            if(rbCorp.isSelected()){
+                Corporativo corp =clientesCorp.get(cmbCliCorp.getSelectedIndex());
+                client=corp;
+                //tipoCliente=0;
+            }else{
+                //tipoCliente=1;
+                String s="";
+                if(cmbSexo.getSelectedIndex()==1){
+                    s="M";
+                }else{
+                    s="F";
+                }
+                Ocasional oca=new Ocasional(txtaDir.getText(), lblNombre.getText(), s);
+            }
+            
+            if(bgContado.isSelected()){
+                String moneda="";
+                tipoPago=0;
+                if(cmbMoneda.getSelectedIndex()==0){
+                    moneda="Colones";
+                }else{
+                    moneda="Dolares";
+                }
+                
+                Contado cont=new Contado(moneda);
+                pag=cont;
+            }else{
+                tipoPago=1;
+                TipoTarjeta tarjeta=new TipoTarjeta(cmbTarjetas.getSelectedItem().toString());
+                Credito cred=new Credito(txtfNoTarjeta.getText(), tarjeta);
+                pag=cred;
+            }
+            Date fecha=new Date();
+            boolean descAc=false;
+            if(chbDesc.isSelected()){
+                descAc=true;
+            }
+            Orden orden=new Orden(fecha, deta, pag, client, descAc, desclimit);
+            
+            orden.finalizarOrden(tipoPago);
+            this.limpiarPantalla();
         }
     }
     
@@ -249,7 +318,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
 
         try {
-            txtfNoTarjeta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####-####-####")));
+            txtfNoTarjeta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####-####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -311,7 +380,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addComponent(txtfDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,54 +521,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfDescKeyTyped
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        String desclimit=txtfDesc.getText();
-        if(chbDesc.isSelected()){
-            if(desclimit.length()>2 || desclimit.isBlank()){
-                JOptionPane.showMessageDialog(null, "El porcentaje de descuento debe de ser de uno o dos caracteres");
-                txtfDesc.setText("");
-            }
-            
-            
-        }else{
-            
-        DetalleOrden deta=new DetalleOrden(listaCompra);
-            Pago pag;
-            Cliente client = null;
-            if(rbCorp.isSelected()){
-                Corporativo corp =clientesCorp.get(cmbCliCorp.getSelectedIndex());
-                client=corp;
-            }else{
-                String s="";
-                if(cmbSexo.getSelectedIndex()==1){
-                    s="M";
-                }else{
-                    s="F";
-                }
-                Ocasional oca=new Ocasional(txtaDir.getText(), lblNombre.getText(), s);
-            }
-            
-            if(bgContado.isSelected()){
-                String moneda="";
-                if(cmbMoneda.getSelectedIndex()==0){
-                    moneda="Colones";
-                }else{
-                    moneda="Dolares";
-                }
-                
-                Contado cont=new Contado(moneda);
-                pag=cont;
-            }else{
-                TipoTarjeta tarjeta=new TipoTarjeta(cmbTarjetas.getSelectedItem().toString());
-                Credito cred=new Credito(txtfNoTarjeta.getText(), tarjeta);
-                pag=cred;
-            }
-            Date fecha=new Date();
-            boolean descAc=false;
-            if(chbDesc.isSelected()){
-                descAc=true;
-            }
-            Orden orden=new Orden(fecha, deta, pag, client, descAc, desclimit);
-        }
+        finalizar();
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void txtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfNombreActionPerformed

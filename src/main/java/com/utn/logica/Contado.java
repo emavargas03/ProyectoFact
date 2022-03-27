@@ -13,6 +13,13 @@ public class Contado extends Pago {
         this.tipoMoneda = tipoMoneda;
     }
 
+    @Override
+    public String toString() {
+        return "Tipo Moneda: "+ this.getTipoMoneda();
+    }
+
+    
+    
     
 
     public String getTipoMoneda() {

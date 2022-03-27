@@ -21,10 +21,8 @@ public class Producto {
     @Override
     public String toString() {
         return "Codigo: "+getCodigoProducto()+
-                "\nNombre: "+getDescripcion()+
-                "\nPrecio: "+getCosto()+
-                "\nUtilidad: "+getUtilidad()
-                +"\nImpuesto: "+getImpuesto();
+                " Nombre: "+getDescripcion()+
+                " Precio: "+(getCosto()+(getCosto()*getUtilidad()));
     }
     
     public String mostrarComboB(){

@@ -13,6 +13,13 @@ public class Credito extends Pago {
         this.tipoTarejta = tipoTarejta;
     }
 
+    @Override
+    public String toString() {
+        return "Tipo Pago: "+this.getTipoTarejta().getDescripcion();
+    }
+    
+    
+
     public String getNoTarjetaCredito() {
         return noTarjetaCredito;
     }

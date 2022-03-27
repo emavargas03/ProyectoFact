@@ -97,11 +97,30 @@ public class Orden {
 
     @Override
     public String toString() {
-        return "";
+        ArrayList<String> listaProdFinal = new ArrayList<String>();
+        
+        /*for (int i = 0; i < this.detalleOrden.getProductos().size(); i++) {
+            Producto productoActual =this.detalleOrden.getProductos().get(i);
+            
+        }*/
+        String ord=this.getClient().toString()+
+                "\n"+this.getPago().toString()
+                +"\n";
+        
+        for (Producto producto : this.getDetalleOrden().getProductos()) {
+            ord+=producto.toString()
+                    +"\n";
+        }
+        
+        ord+="Subtotal: "+this.calculoTotal()+
+                "\nTotal: " +this.calculoImpuesto();
+        return ord;
     }
     
     
-    public void finalizarOrden(int tipoCliente,int tipoPago){
+    
+    
+    public void finalizarOrden(int tipoPago){
         Archivos archivo=new Archivos();
         
         String orden="Cliente: "+client.getNombre()+" Fecha: "+fecha.toString();
@@ -114,13 +133,21 @@ public class Orden {
         }else{
             totalOficial=this.calculoImpuesto();
         }
-        if(tipoPago==0){
+        if(tipoPago==1){
                 Credito cred=(Credito) this.getPago();
-                orden+="Tipo Pago: "+cred.getNoTarjetaCredito();
+                orden+="Tipo Pago: "+cred.getTipoTarejta().getDescripcion() +" Numero Tarjeta: "+cred.getNoTarjetaCredito();
+                
+        }else{
+            Contado cont=(Contado) this.getPago();
+            orden+="Tipo Pago: Contado, Moneda: "+cont.getTipoMoneda();
         }
         
         
-        orden+=" Total: "+totalOficial;
+        
+        System.out.println(orden);
+        orden+=" Total: "+pago.montoLetras(totalOficial+"");
+        JOptionPane.showMessageDialog(null, this.toString());
+        System.out.println(orden);
     }
 
     

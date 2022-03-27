@@ -12,11 +12,11 @@ public abstract class Pago {
         
     }
 
-    public String montoLetras(double montoImp) {
+    public String montoLetras(String montoImp) {
         Numero_a_Letra d= new Numero_a_Letra();
         
         String letras= d.Convertir(montoImp+"", true);
-        
+        System.out.println(letras);
         
         return letras;        
     }
