@@ -18,7 +18,7 @@ public class Archivos {
 		try {//además de la ruta del archivo recibe un parámetro de tipo boolean, que le indican que se va añadir más registros 
 			flwriter = new FileWriter(System.getProperty("user.dir")+"\\Data\\RegistroOrdenes.txt", true);
 			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-			bfwriter.write("\noliwis");
+			bfwriter.write(orden);
 			bfwriter.close();
 			System.out.println("Archivo modificado satisfactoriamente..");
  
@@ -109,11 +109,11 @@ public class Archivos {
         }
     }
     
-    public double tipoCambio() throws FileNotFoundException{
+    public float tipoCambio() throws FileNotFoundException{
         File file = new File(System.getProperty("user.dir")+"\\Data\\TipoCambio.txt");
         Scanner sc = new Scanner(file);
         String strCambio=sc.nextLine();
-        double cambio=Double.parseDouble(strCambio);
+        float cambio=Float.parseFloat(strCambio);
         
         return cambio;
     }

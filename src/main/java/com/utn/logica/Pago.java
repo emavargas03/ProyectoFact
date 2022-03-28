@@ -1,15 +1,17 @@
 package com.utn.logica;
 
+import com.utn.utilidades.Archivos;
 import com.utn.utilidades.Numero_a_Letra;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Pago {
-
+    protected int moneda;
     
 
-    public Pago() {
-        
+    public Pago(int moneda) {
+        this.moneda=moneda;
     }
 
     public String montoLetras(String montoImp) {
@@ -19,5 +21,31 @@ public abstract class Pago {
         System.out.println(letras);
         
         return letras;        
+    }
+    
+    public String conversion(float colones) throws FileNotFoundException{
+        Archivos arch=new Archivos();
+        
+        Float valorDolar=arch.tipoCambio();
+        
+        float totalDolares=colones/valorDolar;
+        
+        totalDolares=Math.round(totalDolares*100) /100f;
+        
+        return totalDolares+"";
+    }
+
+    /**
+     * @return the moneda
+     */
+    public int getMoneda() {
+        return moneda;
+    }
+
+    /**
+     * @param moneda the moneda to set
+     */
+    public void setMoneda(int moneda) {
+        this.moneda = moneda;
     }
 }

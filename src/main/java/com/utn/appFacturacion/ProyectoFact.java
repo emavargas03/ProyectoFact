@@ -25,7 +25,7 @@ public class ProyectoFact {
         tarjetas.add(americanexpress);
         Archivos archivos=new Archivos();
         
-        archivos.guardarOrden("");
+        
         ArrayList<Corporativo> clientesCorp= archivos.leerCorporativos();
         
         ArrayList<Producto> productos = archivos.leerProductos();

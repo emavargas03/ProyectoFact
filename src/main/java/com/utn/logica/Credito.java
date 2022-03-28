@@ -8,7 +8,8 @@ public class Credito extends Pago {
     private String noTarjetaCredito;
     private TipoTarjeta tipoTarejta;
 
-    public Credito(String noTarjetaCredito, TipoTarjeta tipoTarejta) {
+    public Credito(String noTarjetaCredito, TipoTarjeta tipoTarejta,int moneda) {
+        super(moneda);
         this.noTarjetaCredito = noTarjetaCredito;
         this.tipoTarejta = tipoTarejta;
     }

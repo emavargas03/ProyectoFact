@@ -2,10 +2,14 @@
 package com.utn.logica;
 
 import com.utn.utilidades.Archivos;
+import com.utn.utilidades.Numero_a_Letra;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -39,7 +43,7 @@ public class Orden {
             total+=(producto.getCosto()+(producto.getCosto()*producto.getUtilidad()));
             
         }
-        
+        total=Math.round(total*100) /100f;
         return total;
     }
     
@@ -52,7 +56,7 @@ public class Orden {
             double totalInc=producto.getCosto()+totalU;
             total+=totalInc+(totalInc*producto.getImpuesto());
         }
-        
+        total=Math.round(total*100) /100f;
         return total;
     }
     
@@ -97,6 +101,7 @@ public class Orden {
 
     @Override
     public String toString() {
+        Numero_a_Letra as=new Numero_a_Letra();
         ArrayList<String> listaProdFinal = new ArrayList<String>();
         
         /*for (int i = 0; i < this.detalleOrden.getProductos().size(); i++) {
@@ -112,27 +117,61 @@ public class Orden {
                     +"\n";
         }
         
-        ord+="Subtotal: "+this.calculoTotal()+
-                "\nTotal: " +this.calculoImpuesto();
+        
+        if(descuento){
+            float totalOficial= 0.0f;
+            String porc="0."+porDesc;
+            
+            float descuento = Float.parseFloat(porc);
+            float cantidad=this.calculoImpuesto()-(this.calculoImpuesto()*descuento);
+            totalOficial=cantidad;
+            totalOficial=this.calculoImpuesto()-(this.calculoImpuesto()*descuento);
+            if (this.getPago().getMoneda()==1) {
+                String totalDolares="";
+                String totalFinalDolares="";
+                try {
+                    totalDolares= this.getPago().conversion(this.calculoTotal());
+                    totalFinalDolares=this.getPago().conversion(totalOficial);
+                } catch (FileNotFoundException ex) {
+                }
+                ord+="Subtotal: "+ as.Convertir(totalDolares, true)+" Dolares"+
+                "\nTotal IVAI + Descuento: " +as.Convertir(totalFinalDolares+"", true)+" Dolares";
+            }else{
+                System.out.println(totalOficial);
+                ord+="Subtotal: "+as.Convertir(this.calculoTotal()+"", true)+" Colones"+
+                "\nTotal IVAI + Descuento: " +as.Convertir(totalOficial+"", true)+" Colones";
+            }
+            
+        }else{
+            //totalOficial=this.calculoImpuesto();
+            if (this.getPago().getMoneda()==1){
+                String totalDolares="";
+                String totalFinalDolares="";
+                
+                try {
+                    totalDolares= this.getPago().conversion(this.calculoTotal());
+                    totalFinalDolares=this.getPago().conversion(this.calculoImpuesto());
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ord+="Subtotal: "+as.Convertir(totalDolares, true)+" Dolares"+
+                "\nTotal: " +as.Convertir(totalFinalDolares+"", true)+" Dolares";
+            }else{
+                ord+="Subtotal: "+as.Convertir(this.calculoTotal()+"", true)+" Colones"+
+                "\nTotal: " +as.Convertir(this.calculoImpuesto()+"", true)+" Colones";
+            }
+            
+        }
+        
         return ord;
     }
-    
-    
-    
     
     public void finalizarOrden(int tipoPago){
         Archivos archivo=new Archivos();
         
         String orden="Cliente: "+client.getNombre()+" Fecha: "+fecha.toString();
         
-        float totalOficial= 0.0f;
-        if(descuento){
-            String porc="0."+porDesc;
-            float descuento = Float.parseFloat(porc);
-            totalOficial=this.calculoImpuesto()-(this.calculoImpuesto()*descuento);
-        }else{
-            totalOficial=this.calculoImpuesto();
-        }
+        
         if(tipoPago==1){
                 Credito cred=(Credito) this.getPago();
                 orden+="Tipo Pago: "+cred.getTipoTarejta().getDescripcion() +" Numero Tarjeta: "+cred.getNoTarjetaCredito();
@@ -145,9 +184,11 @@ public class Orden {
         
         
         System.out.println(orden);
-        orden+=" Total: "+pago.montoLetras(totalOficial+"");
+        //orden+=" Total: "+pago.montoLetras(totalOficial+"");
         JOptionPane.showMessageDialog(null, this.toString());
-        System.out.println(orden);
+        //System.out.println(orden);
+        Archivos arch=new Archivos();
+        arch.guardarOrden(this.toString()+"\n----------------------------------------------\n");
     }
 
     
