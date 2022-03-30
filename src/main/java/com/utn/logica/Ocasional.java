@@ -37,6 +37,10 @@ public class Ocasional extends Cliente {
                 "\nDireccion: "+this.getDireccion()
                 +"\nSexo: "+this.getSexo();
     }
+
+    
+    
+    
     
     
     /*

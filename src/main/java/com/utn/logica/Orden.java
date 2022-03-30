@@ -188,7 +188,7 @@ public class Orden {
     public void finalizarOrden(int tipoPago){
         Archivos archivo=new Archivos();
         
-        String orden="Cliente: "+client.getNombre()+" Fecha: "+fecha.toString();
+        /*String orden="Cliente: "+client.getNombre()+" Fecha: "+fecha.toString();
         
         
         if(tipoPago==1){
@@ -203,7 +203,7 @@ public class Orden {
         
         
         System.out.println(orden);
-
+        */
         JOptionPane.showMessageDialog(null, this.toString());
 
         Archivos arch=new Archivos();
