@@ -3,11 +3,20 @@ package com.utn.logica;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Credito extends Pago {
 
+/*
+Esta sección del Proyecto se crea la clase Crédito hereda de la clase Pago
+*/
+public class Credito extends Pago {
+     /*
+    Definición de las variables
+    */
     private String noTarjetaCredito;
     private TipoTarjeta tipoTarejta;
 
+    /*
+    Creación de los constructores de los atributos de la clase 
+     */
     public Credito(String noTarjetaCredito, TipoTarjeta tipoTarejta,int moneda) {
         super(moneda);
         this.noTarjetaCredito = noTarjetaCredito;
@@ -20,7 +29,9 @@ public class Credito extends Pago {
     }
     
     
-
+    /*
+    Se crean los respectivos geters y seters de la clase 
+     */
     public String getNoTarjetaCredito() {
         return noTarjetaCredito;
     }

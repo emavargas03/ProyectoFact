@@ -1,6 +1,11 @@
 
 package com.utn.logica;
-
+/*
+Se importan las biliotecas: BufferedWriter para leer el texto de una secuencia de entrada (como un archivo) almacenando en el búfer caracteres
+El FileWriter se utiliza para escribir un matriz de caracteres en este caso ayuda para utilizar los archivos
+La biblioteca ArrayList para utilizar listas 
+El JOption es para imprimir fuera de la consola una ventana con información 
+ */
 import com.utn.utilidades.Archivos;
 import com.utn.utilidades.Numero_a_Letra;
 import java.io.BufferedWriter;
@@ -14,39 +19,49 @@ import javax.swing.JOptionPane;
 
 
 public class Orden {
-    
+   /*
+    Se crean las varibles de la clase 
+    */ 
     private Date fecha;
     private DetalleOrden detalleOrden;
     private Pago pago;
     private Cliente client;
-    
     private boolean descuento;
     private String porDesc;
     
     
-    
+    /*
+    Creación de los constructores de los atributos de la clase 
+     */
     public Orden(Date fecha, DetalleOrden detalleOrden, Pago pago, Cliente client,boolean descuento,String porDesc) {
+        
         this.fecha = fecha;
+        
         this.detalleOrden = detalleOrden;
+        
         this.pago = pago;
+        
         this.client = client;
-//        this.impuesto=impuesto;
+        
         this.descuento=descuento;
+        
         this.porDesc=porDesc;
     }
-    
+    /*
+    El calculo total consiste en utilizar el costo del producto y la utilidad(Esta es la gancias)para generar el costo total
+    */
     public float calculoTotal(){
         ArrayList<Producto> detalle=detalleOrden.getProductos();
         float total=0f;
-        
         for (Producto producto : detalle) {
             total+=(producto.getCosto()+(producto.getCosto()*producto.getUtilidad()));
-            
         }
         total=Math.round(total*100) /100f;
         return total;
     }
-    
+    /*
+    El metodo calcular impuesto consiste en sumar el Calculo total más el impuesto
+    */
     public float calculoImpuesto(){
         ArrayList<Producto> detalle=detalleOrden.getProductos();
         float total=0f;
@@ -61,7 +76,9 @@ public class Orden {
     }
     
         
-
+/*
+    Se crean los respectivos geters y seters de la clase 
+     */
     public Date getFecha() {
         return fecha;
     }
@@ -165,7 +182,9 @@ public class Orden {
         
         return ord;
     }
-    
+    /*
+    Medoto finalizar orden
+     */
     public void finalizarOrden(int tipoPago){
         Archivos archivo=new Archivos();
         
@@ -184,9 +203,9 @@ public class Orden {
         
         
         System.out.println(orden);
-        //orden+=" Total: "+pago.montoLetras(totalOficial+"");
+
         JOptionPane.showMessageDialog(null, this.toString());
-        //System.out.println(orden);
+
         Archivos arch=new Archivos();
         arch.guardarOrden(this.toString()+"\n----------------------------------------------\n");
     }

@@ -1,15 +1,20 @@
 package com.utn.logica;
 
-import java.util.ArrayList;
+
 
 public class Producto {
-
+    /*
+    Se definen las varibles de la clase 
+    */
     private String CodigoProducto;
     private String Descripcion;
     private double Costo;
     protected double utilidad;
     protected double impuesto;
 
+    /*
+    Se crean los respectivos constructores para la clase
+    */
     public Producto(String CodigoProducto, String Descripcion, double Costo, double utilidad, double impuesto) {
         this.CodigoProducto = CodigoProducto;
         this.Descripcion = Descripcion;
@@ -18,6 +23,9 @@ public class Producto {
         this.impuesto=impuesto;
     }
 
+    /*
+    Método Tostring que permite mostrar los datos impresos de la clase Producto
+    */
     @Override
     public String toString() {
         return "Codigo: "+getCodigoProducto()+
@@ -25,11 +33,17 @@ public class Producto {
                 " Precio: "+(getCosto()+(getCosto()*getUtilidad()));
     }
     
+     /*
+    Método que reliza la impresión para el combobox
+    */
     public String mostrarComboB(){
         return getCodigoProducto()+" "+getDescripcion();
     }
     
     
+    /*
+    Se crean los respectivos geters y seters de la clase 
+     */
 
     public String getCodigoProducto() {
         return CodigoProducto;

@@ -143,3 +143,26 @@ Codigo: 113 Nombre: Pan Bimbo Precio: 1238.9
 Subtotal: OCHO MIL NOVECIENTOS SETENTA Y TRES 4/100 Colones
 Total: DIEZ MIL CIENTO TREINTA Y NUEVE 94/100 Colones
 ----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Codigo: 113 Nombre: Pan Bimbo Precio: 1238.9
+Codigo: 113 Nombre: Pan Bimbo Precio: 1238.9
+Codigo: 112 Nombre: Fanta Precio: 704.0
+Subtotal: TRES MIL CIENTO OCHENTA Y UN 8/100 Colones
+Total: TRES MIL QUINIENTOS NOVENTA Y CINCO 43/100 Colones
+----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Dolares
+Codigo: 111 Nombre: Coca Precio: 770.0
+Codigo: 111 Nombre: Coca Precio: 770.0
+Codigo: 111 Nombre: Coca Precio: 770.0
+Codigo: 112 Nombre: Fanta Precio: 704.0
+Subtotal: CUATRO 71/100 Dolares
+Total: CINCO 32/100 Dolares
+----------------------------------------------

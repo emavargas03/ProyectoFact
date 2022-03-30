@@ -5,17 +5,27 @@
  */
 package com.utn.logica;
 
-import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  *
- * @author Anthony
+ * @author Emanuel
+ */
+
+/*
+Esta sección del Proyecto se crea la clase Ocasional esa clase forma parte de Cliente
  */
 public class Ocasional extends Cliente {
 
+    /*
+    Definición de variables 
+     */ 
     private String direccion;
 
+    
+     /*
+    Creación de los constructores de los atributos de la clase 
+     */
     public Ocasional(String direccion, String Nombre, String Sexo) {
         super(Nombre, Sexo);
         this.direccion = direccion;
@@ -29,7 +39,9 @@ public class Ocasional extends Cliente {
     }
     
     
-
+    /*
+    Se crean los respectivos geters y seters de la clase 
+     */
     public String getDireccion() {
         return direccion;
     }
