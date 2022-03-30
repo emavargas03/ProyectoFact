@@ -102,13 +102,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         modelo.setRowCount(0);
         total=0;
         lblTotal.setText(total+"");
+        rbCorp.setSelected(true);
+        txtaDir.setText("");
+        txtfDesc.setText("");
+        txtfDesc.setEnabled(false);
+        txtfNombre.setText("");
+        txtfNoTarjeta.setText("");
+        chbDesc.setSelected(false);
+        bgContado.setSelected(true);
     }
     
     public void procesarorden(boolean procesarDesc){
         DetalleOrden deta=new DetalleOrden(listaCompra);
         String desclimit=txtfDesc.getText();
         Pago pag;
-        Cliente client = null;
+        Cliente client;
         int tipoCliente,tipoPago;
         if(rbCorp.isSelected()){
             Corporativo corp =clientesCorp.get(cmbCliCorp.getSelectedIndex());
@@ -118,11 +126,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             //tipoCliente=1;
             String s="";
             if(cmbSexo.getSelectedIndex()==1){
-                s="M";
-            }else{
                 s="F";
+            }else{
+                s="M";
             }
-            Ocasional oca=new Ocasional(txtaDir.getText(), lblNombre.getText(), s);
+            Ocasional oca=new Ocasional(txtaDir.getText(), txtfNombre.getText(), s);
+            client=oca;
+            System.out.println(oca.toString());
         }
         int tipoMoneda=0;
         if(bgContado.isSelected()){
@@ -154,9 +164,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     public void finalizar(){
         String desclimit=txtfDesc.getText();
+        String noTarjeta=txtfNoTarjeta.getText();
         if(chbDesc.isSelected()){
-            if(desclimit.length()>2 || desclimit.isBlank()){
-                JOptionPane.showMessageDialog(null, "El porcentaje de descuento debe de ser de uno o dos caracteres");
+            if(desclimit.length()>2 || desclimit.isBlank() || noTarjeta.length() < 16 || noTarjeta.isBlank()){
+                JOptionPane.showMessageDialog(null, "Todos los cambos deben de estar llenos");
                 txtfDesc.setText("");
             }else{
                 procesarorden(true);
