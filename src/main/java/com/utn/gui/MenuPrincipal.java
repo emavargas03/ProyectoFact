@@ -576,7 +576,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /*
         Este botón ejecuta el método finalizar que temrina e imprime la orden final
          */
-        finalizar();
+        if(listaCompra.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe agregar productos antes de finalizar la venta");
+        }else{
+            finalizar();
+        }
+        
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void txtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfNombreActionPerformed

@@ -129,7 +129,7 @@ public class Orden {
         }*/
         String ord = this.getClient().toString()
                 + "\n" + this.getPago().toString()
-                + "\n";
+                + "\nProductos: \n";
 
         for (Producto producto : this.getDetalleOrden().getProductos()) {
             ord += producto.toString()
