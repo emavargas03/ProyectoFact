@@ -1,11 +1,10 @@
 package com.utn.logica;
 
-
-
 public class Producto {
+
     /*
     Se definen las varibles de la clase 
-    */
+     */
     private String CodigoProducto;
     private String Descripcion;
     private double Costo;
@@ -14,37 +13,35 @@ public class Producto {
 
     /*
     Se crean los respectivos constructores para la clase
-    */
+     */
     public Producto(String CodigoProducto, String Descripcion, double Costo, double utilidad, double impuesto) {
         this.CodigoProducto = CodigoProducto;
         this.Descripcion = Descripcion;
         this.Costo = Costo;
-        this.utilidad=utilidad;
-        this.impuesto=impuesto;
+        this.utilidad = utilidad;
+        this.impuesto = impuesto;
     }
 
     /*
     Método Tostring que permite mostrar los datos impresos de la clase Producto
-    */
+     */
     @Override
     public String toString() {
-        return "Codigo: "+getCodigoProducto()+
-                " Nombre: "+getDescripcion()+
-                " Precio: "+(getCosto()+(getCosto()*getUtilidad()));
+        return "Codigo: " + getCodigoProducto()
+                + " Nombre: " + getDescripcion()
+                + " Precio: " + (getCosto() + (getCosto() * getUtilidad()));
     }
-    
-     /*
+
+    /*
     Método que reliza la impresión para el combobox
-    */
-    public String mostrarComboB(){
-        return getCodigoProducto()+" "+getDescripcion();
+     */
+    public String mostrarComboB() {
+        return getCodigoProducto() + " " + getDescripcion();
     }
-    
-    
+
     /*
     Se crean los respectivos geters y seters de la clase 
      */
-
     public String getCodigoProducto() {
         return CodigoProducto;
     }
@@ -69,7 +66,6 @@ public class Producto {
         this.Costo = Costo;
     }
 
-    
     /**
      * @return the utilidad
      */
@@ -97,6 +93,5 @@ public class Producto {
     public void setImpuesto(double impuesto) {
         this.impuesto = impuesto;
     }
-
 
 }

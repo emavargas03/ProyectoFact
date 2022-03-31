@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package com.utn.gui;
+
+/*
+Se importan los diferentes paquetes del proyecto, se importan las bibliotecas para trabajar con los Arraylist (listas), 
+se importan diferentes herramientas para trabajar con los componentes de la GUI
+ */
 import com.utn.logica.*;
 import com.utn.utilidades.Archivos;
 import java.awt.Color;
@@ -17,11 +22,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-/**
- *
- * @author Anthony
- */
+
 public class MenuPrincipal extends javax.swing.JFrame {
+
+    /*
+    Se crean las listas productos y Clientes Corporativos, se crea el objeto que contiene los archivos, además se hacen diferentes varibles
+     */
     ArrayList<Producto> listaProductos;
     ArrayList<Producto> listaCompra;
     ArrayList<Corporativo> clientesCorp;
@@ -29,20 +35,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     DefaultTableModel modelo;
     ArrayList<TipoTarjeta> tarjetas;
     double total;
+
     /**
      * Creates new form MneuPrincipal
      */
     public MenuPrincipal() throws Exception {
-        
+        /*
+        Se crean los array y se muestran en consola los diferentes datos del problema 
+         */
         ArrayList<Producto> productos;
-        
+
         //this.getContentPane().setBackground(new Color(255,255,255));
         initComponents();
-       
-        archivos=new Archivos();
-        listaCompra=new ArrayList<Producto>();
-        clientesCorp=new ArrayList<Corporativo>();
-        
+
+        archivos = new Archivos();
+        listaCompra = new ArrayList<Producto>();
+        clientesCorp = new ArrayList<Corporativo>();
+
         instanciaTarjetas();
         llenarCombo();
         llenarClientesCorp();
@@ -55,53 +64,58 @@ public class MenuPrincipal extends javax.swing.JFrame {
         txtfNombre.setVisible(false);
         lblSexo.setVisible(false);
         cmbSexo.setVisible(false);
-        
-        String col[] = {"Codigo","Desc","Precio","Utilidad"};
-        modelo = new DefaultTableModel(col,0);
+
+        String col[] = {"Codigo", "Desc", "Precio", "Utilidad"};
+        modelo = new DefaultTableModel(col, 0);
         tblLista.setModel(modelo);
-        
-        
-        
-        
+
     }
-    
-    
-    
-    public void instanciaTarjetas(){
+
+    /*
+    Este método permite instanciar los tipos de tarjetas, y además se agrean al arreglo
+     */
+    public void instanciaTarjetas() {
         TipoTarjeta visa = new TipoTarjeta("Visa");
         TipoTarjeta mastercard = new TipoTarjeta("Master card");
         TipoTarjeta americanexpress = new TipoTarjeta("American Express");
-        tarjetas=new ArrayList<TipoTarjeta>();
+        tarjetas = new ArrayList<TipoTarjeta>();
         tarjetas.add(visa);
         tarjetas.add(mastercard);
         tarjetas.add(americanexpress);
     }
-    
-    public void llenarClientesCorp() throws Exception{
-        clientesCorp=archivos.leerCorporativos();
+
+    /*
+    Este método es el en cargado de recorrer y llenar la Lista Clientes Corporativos.
+     */
+    public void llenarClientesCorp() throws Exception {
+        clientesCorp = archivos.leerCorporativos();
         for (Corporativo cliente : clientesCorp) {
             cmbCliCorp.addItem(cliente.mostrarLista());
         }
-    }
-    
-   
-    
-    public void llenarCombo() throws Exception{
-        listaProductos=archivos.leerProductos();
-        for(Producto producto:listaProductos){
+    }/*
+    Este método es el en cargado de recorrer y llenar la Lista Productos.
+     */
+
+
+    public void llenarCombo() throws Exception {
+        listaProductos = archivos.leerProductos();
+        for (Producto producto : listaProductos) {
             cmbProducto.addItem(producto.mostrarComboB());
         }
-        
-        for(TipoTarjeta tarjeta: tarjetas){
+
+        for (TipoTarjeta tarjeta : tarjetas) {
             cmbTarjetas.addItem(tarjeta.getDescripcion());
         }
     }
-    
-    public void limpiarPantalla(){
+
+    /*
+    Este método permite limpipar los datos de la orden de compra
+     */
+    public void limpiarPantalla() {
         listaCompra.clear();
         modelo.setRowCount(0);
-        total=0;
-        lblTotal.setText(total+"");
+        total = 0;
+        lblTotal.setText(total + "");
         rbCorp.setSelected(true);
         txtaDir.setText("");
         txtfDesc.setText("");
@@ -111,74 +125,76 @@ public class MenuPrincipal extends javax.swing.JFrame {
         chbDesc.setSelected(false);
         bgContado.setSelected(true);
     }
-    
-    public void procesarorden(boolean procesarDesc){
-        DetalleOrden deta=new DetalleOrden(listaCompra);
-        String desclimit=txtfDesc.getText();
+
+    /*
+    Este método es el que da forma a la orden final, se muestran los respectivos datos,
+    y crea condíciones para realizar las distribuciones y verifica que los datos se almacenen de forma correcta. 
+     */
+    public void procesarorden(boolean procesarDesc) {
+        DetalleOrden deta = new DetalleOrden(listaCompra);
+        String desclimit = txtfDesc.getText();
         Pago pag;
         Cliente client;
-        int tipoCliente,tipoPago;
-        if(rbCorp.isSelected()){
-            Corporativo corp =clientesCorp.get(cmbCliCorp.getSelectedIndex());
-            client=corp;
+        int tipoCliente, tipoPago;
+        if (rbCorp.isSelected()) {
+            Corporativo corp = clientesCorp.get(cmbCliCorp.getSelectedIndex());
+            client = corp;
             //tipoCliente=0;
-        }else{
+        } else {
             //tipoCliente=1;
-            String s="";
-            if(cmbSexo.getSelectedIndex()==1){
-                s="F";
-            }else{
-                s="M";
+            String s = "";
+            if (cmbSexo.getSelectedIndex() == 1) {
+                s = "F";
+            } else {
+                s = "M";
             }
-            Ocasional oca=new Ocasional(txtaDir.getText(), txtfNombre.getText(), s);
-            client=oca;
+            Ocasional oca = new Ocasional(txtaDir.getText(), txtfNombre.getText(), s);
+            client = oca;
             System.out.println(oca.toString());
         }
-        int tipoMoneda=0;
-        if(bgContado.isSelected()){
-            String moneda="";
-            
-            tipoPago=0;
-            if(cmbMoneda.getSelectedIndex()==0){
-                moneda="Colones";
-                
-            }else{
-                moneda="Dolares";
-                tipoMoneda=1;
+        int tipoMoneda = 0;
+        if (bgContado.isSelected()) {
+            String moneda = "";
+
+            tipoPago = 0;
+            if (cmbMoneda.getSelectedIndex() == 0) {
+                moneda = "Colones";
+
+            } else {
+                moneda = "Dolares";
+                tipoMoneda = 1;
             }
 
-            Contado cont=new Contado(moneda,tipoMoneda);
-            pag=cont;
-        }else{
-            tipoPago=1;
-            TipoTarjeta tarjeta=new TipoTarjeta(cmbTarjetas.getSelectedItem().toString());
-            Credito cred=new Credito(txtfNoTarjeta.getText(), tarjeta,0);
-            pag=cred;
+            Contado cont = new Contado(moneda, tipoMoneda);
+            pag = cont;
+        } else {
+            tipoPago = 1;
+            TipoTarjeta tarjeta = new TipoTarjeta(cmbTarjetas.getSelectedItem().toString());
+            Credito cred = new Credito(txtfNoTarjeta.getText(), tarjeta, 0);
+            pag = cred;
         }
-        Date fecha=new Date();
-        Orden orden=new Orden(fecha, deta, pag, client, procesarDesc, desclimit);
+        Date fecha = new Date();
+        Orden orden = new Orden(fecha, deta, pag, client, procesarDesc, desclimit);
 
         orden.finalizarOrden(tipoPago);
         this.limpiarPantalla();
     }
-    
-    public void finalizar(){
-        String desclimit=txtfDesc.getText();
-        String noTarjeta=txtfNoTarjeta.getText();
-        if(chbDesc.isSelected()){
-            if(desclimit.length()>2 || desclimit.isBlank() || noTarjeta.length() < 16 || noTarjeta.isBlank()){
+
+    public void finalizar() {
+        String desclimit = txtfDesc.getText();
+        String noTarjeta = txtfNoTarjeta.getText();
+        if (chbDesc.isSelected()) {
+            if (desclimit.length() > 2 || desclimit.isBlank() || noTarjeta.length() < 16 || noTarjeta.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Todos los cambos deben de estar llenos");
                 txtfDesc.setText("");
-            }else{
+            } else {
                 procesarorden(true);
             }
-        }else{
+        } else {
             procesarorden(false);
-            
+
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -461,22 +477,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseExited
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Producto produ=listaProductos.get(cmbProducto.getSelectedIndex());
-        total+=(produ.getCosto()+(produ.getCosto()*produ.getUtilidad()));
-        total=Math.round(total*100) /100d;
+        /*
+        Este botón es el encargdo de almacenar los productos que se muestran en pantalla para hacer los cálculos totales,
+        es esta sección se añade los datos y la cantidad del producto y se hace el cálculo Final 
+         */
+        Producto produ = listaProductos.get(cmbProducto.getSelectedIndex());
+        total += (produ.getCosto() + (produ.getCosto() * produ.getUtilidad()));
+        total = Math.round(total * 100) / 100d;
         System.out.println(total);
-        lblTotal.setText(total+"");
+        lblTotal.setText(total + "");
         listaCompra.add(listaProductos.get(cmbProducto.getSelectedIndex()));
-        String codigo=produ.getCodigoProducto();
-        String desc=produ.getDescripcion();
-        String precio=produ.getCosto()+"";
-        String utilidad=produ.getUtilidad()+"";
-        String prod[]={codigo,desc,precio,utilidad};
+        String codigo = produ.getCodigoProducto();
+        String desc = produ.getDescripcion();
+        String precio = produ.getCosto() + "";
+        String utilidad = produ.getUtilidad() + "";
+        String prod[] = {codigo, desc, precio, utilidad};
         modelo.addRow(prod);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void rbCorpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbCorpStateChanged
-        if(rbCorp.isSelected()){
+        /*
+        Es la selección del cliente
+         */
+        if (rbCorp.isSelected()) {
             cmbCliCorp.setVisible(true);
             spDir.setVisible(false);
             lblDir.setVisible(false);
@@ -484,7 +507,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             lblSexo.setVisible(false);
             cmbSexo.setVisible(false);
             txtfNombre.setVisible(false);
-        }else{
+        } else {
             cmbCliCorp.setVisible(false);
             spDir.setVisible(true);
             lblDir.setVisible(true);
@@ -500,45 +523,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rbCorpActionPerformed
 
     private void bgCreditoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bgCreditoStateChanged
-        if(bgCredito.isSelected()){
+        /*
+        La selección si se escoge la opción de Crédito
+         */
+        if (bgCredito.isSelected()) {
             cmbTarjetas.setVisible(true);
             txtfNoTarjeta.setVisible(true);
-        }else{
+        } else {
             cmbTarjetas.setVisible(false);
             txtfNoTarjeta.setVisible(false);
         }
     }//GEN-LAST:event_bgCreditoStateChanged
 
     private void bgContadoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bgContadoStateChanged
-        if(bgContado.isSelected()){
+        /*
+        La selección si se escoge la opción de Crédito
+         */
+        if (bgContado.isSelected()) {
             cmbMoneda.setVisible(true);
-        }else{
+        } else {
             cmbMoneda.setVisible(false);
         }
     }//GEN-LAST:event_bgContadoStateChanged
 
     private void chbDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbDescActionPerformed
-        
-        if(chbDesc.isSelected()){
-            
+        /*
+        En esta parte se gestiona el descuento que se desea aplicar
+         */
+        if (chbDesc.isSelected()) {
+
             txtfDesc.setEnabled(true);
-        }else{
+        } else {
             txtfDesc.setEnabled(false);
         }
     }//GEN-LAST:event_chbDescActionPerformed
 
     private void chbDescStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chbDescStateChanged
-        
+
     }//GEN-LAST:event_chbDescStateChanged
 
     private void txtfDescKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfDescKeyTyped
+        /*
+        Se verifica que el número ingresado para el descuento 
+         */
         char c = evt.getKeyChar();
-        if ( ((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtfDescKeyTyped
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        /*
+        Este botón ejecuta el método finalizar que temrina e imprime la orden final
+         */
         finalizar();
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
