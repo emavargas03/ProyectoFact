@@ -277,3 +277,55 @@ Codigo: 111 Nombre: Coca Precio: 770.0
 Subtotal: DOS MIL TRECIENTOS DIEZ 0/100 Colones
 Total: DOS MIL SEISCIENTOS DIEZ 3/100 Colones
 ----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Codigo: 112 Nombre: Fanta Precio: 704.0
+Codigo: 112 Nombre: Fanta Precio: 704.0
+Codigo: 112 Nombre: Fanta Precio: 704.0
+Subtotal: DOS MIL CIENTO DOCE 0/100 Colones
+Total: DOS MIL TRECIENTOS OCHENTA Y SEIS 56/100 Colones
+----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Productos: 
+Codigo: 111 Nombre: Coca Precio: 770.0
+Codigo: 111 Nombre: Coca Precio: 770.0
+Subtotal: UN MIL QUINIENTOS CUARENTA 0/100 Colones
+Total: UN MIL SETECIENTOS CUARENTA 2/100 Colones
+----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Productos: 
+Subtotal: CERO 0/100 Colones
+Total: CERO 0/100 Colones
+----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Productos: 
+Codigo: 111 Nombre: Coca Precio: 770.0
+Subtotal: SETECIENTOS SETENTA 0/100 Colones
+Total: OCHOCIENTOS SETENTA 1/100 Colones
+----------------------------------------------
+Nombre: Eduardo
+Sexo: M
+Telefono: 85107190
+Email: ejvargas44@gmail.com
+Tipo Moneda: Colones
+Productos: 
+Codigo: 111 Nombre: Coca Precio: 770.0
+Codigo: 114 Nombre: Oreos Precio: 1380.0
+Subtotal: DOS MIL CIENTO CINCUENTA 0/100 Colones
+Total: DOS MIL CUATROCIENTOS OCHENTA Y CUATRO 7/100 Colones
+----------------------------------------------
